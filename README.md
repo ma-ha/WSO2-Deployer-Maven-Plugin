@@ -11,6 +11,7 @@ mvn clean install -Dmaven.test.skip=true
 Prepare
 =======
 Since the WSO2 servers come with self signed certificates the web service will fail, so you have to import the certificate into you certificate store:
+
 1. Start the WSO2 Server and open the carbon console in the browser.
 2. Copy the SSL certificate from the browser to a local file, e.g. wso2-as.cert
 3. Load the certificate into your keystore (it will go to ~/.keystore by default):<br><code>keytool -import -trustcacerts -alias wso2as-key -file wso2-as.cert</code>
