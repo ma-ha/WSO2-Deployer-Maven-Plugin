@@ -15,7 +15,7 @@ mvn deploy:wso2
 
 Usage
 =====
-Please use the <code><a href="blob/master/src/test/pom.xml">src/test/pom.xml</a></code> as example 
+Please use the <code><a href="https://github.com/ma-ha/WSO2-Deployer-Maven-Plugin/blob/master/src/test/pom.xml">src/test/pom.xml</a></code> as example 
 to configure your own deployments.
 
 If you use WSO2 clusters, you may have to define server roles and deploy each artifact to all managers, 
