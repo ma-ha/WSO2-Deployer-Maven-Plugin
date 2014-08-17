@@ -1,6 +1,7 @@
 WSO2 Deployer MOJO (Maven Plug In)
 ==================================
 Idea: Deploy to WSO2 server and clusters using Maven
+
     <build>
       <plugins>
         <plugin>
