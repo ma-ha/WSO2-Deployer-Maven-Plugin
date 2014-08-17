@@ -1,5 +1,46 @@
 WSO2 Deployer MOJO (Maven Plug In)
 ==================================
+Idea: Deploy to WSO2 server and clusters using Maven
+<pre>
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.mh.mojo.wso2deployment</groupId>
+			<artifactId>wso2deployment-maven-plugin</artifactId>
+			...
+			<configuration>
+	
+				<environment>
+					<serverconfig>
+						<serverId>as01</serverId>
+						<serverUrl>https://localhost:9443/services/</serverUrl>
+						<adminUser>admin</adminUser>
+						<adminPassword>...</adminPassword>
+					</serverconfig>
+					... (add as many servers you need)
+				</environment>
+				
+				<deployments>
+					<deployment>
+						<serverId>as01</serverId>
+						<groupId>org.mh</groupId>
+						<artifactId>TestApp</artifactId>
+						<version>1.2.3</version>
+						<artifactType>war</artifactType>
+					</deployment>
+				
+					... (deploy to all servers as required) 
+				
+				</deployments>
+				
+			</configuration>			
+		</plugin>
+		-,,,
+	</plugins>
+</build>
+		
+</pre>
+
 
 Build From Source
 =================
