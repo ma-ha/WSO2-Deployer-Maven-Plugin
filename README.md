@@ -1,7 +1,7 @@
 WSO2 Deployer MOJO (Maven Plug In)
 ==================================
 Idea: Deploy to WSO2 server and clusters using Maven
-<pre>
+<pre><code>
 <build>
 	<plugins>
 		<plugin>
@@ -35,10 +35,10 @@ Idea: Deploy to WSO2 server and clusters using Maven
 				
 			</configuration>			
 		</plugin>
-		-,,,
+		...
 	</plugins>
 </build>
-		
+</code>	
 </pre>
 
 
