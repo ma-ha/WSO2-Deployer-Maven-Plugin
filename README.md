@@ -1,4 +1,5 @@
-Important notice: current version 0.2 can deploy WAR files only. I'll add the other deployment modules if I have some time.
+WSO2 Deployer MOJO (Maven Plug In)
+==================================
 
 Build From Source
 =================
@@ -14,7 +15,7 @@ Since the WSO2 servers come with self signed certificates the web service will f
 
 1. Start the WSO2 Server and open the carbon console in the browser.
 2. Copy the SSL certificate from the browser to a local file, e.g. wso2-as.cert
-3. Load the certificate into your keystore (it will go to ~/.keystore by default):<br><code>keytool -import -trustcacerts -alias wso2as-key -file wso2-as.cert</code>
+3. Load the certificate into your key store (it will go to ~/.keystore by default):<br><code>keytool -import -trustcacerts -alias wso2as-key -file wso2-as.cert</code>
 
 Run Test
 ========
