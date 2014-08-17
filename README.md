@@ -25,7 +25,7 @@ mvn install:install-file -DgroupId=test -DartifactId=AarTest -Dversion=1.0.0 -Dp
 </pre>
 A CAR is not provided, so I provided one here (don't hesitate -- it contains an empty dummy config, w/o any application)
 <pre>
-mvn install:install-file -DgroupId=test -DartifactId=CarbonAppTest -Dversion=0.0.1 -Dpackaging=car -Dfile=CarbonAppTest.car
+mvn install:install-file -DgroupId=test -DartifactId=CarbonAppTest -Dversion=1.0.0 -Dpackaging=car -Dfile=CarbonAppTest.car
 </pre>
 Of course then the WSO2 servers need to be running -- at least a WSO2 AS.
 <pre>
