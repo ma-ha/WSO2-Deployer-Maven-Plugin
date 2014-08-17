@@ -8,9 +8,15 @@ cd WSO2-Deployer-Maven-Plugin
 mvn clean install -Dmaven.test.skip=true
 </pre>
 
+Prepare
+=======
+1. Start the WSO2 Server and open the carbon console in the browser.
+2. Copy the SSL certificate from the browser to a local file, e.g. wso2-as.cert
+3. Load the certificate into your keystore (it will go to ~/.keystore by default):<br><code>keytool -import -trustcacerts -alias wso2as-key -file wso2-as.cert</code>
+
 Run Test
 ========
-For this test you need to install a <code>CRM-0.1.0.war</code> into your local repository.
+For this test you need to install a <code>CRM-0.1.0.war</code> into your local repository. And of course the WSO2 servers need to be running.
 <pre>
 cd src/test
 mvn deploy:wso2
