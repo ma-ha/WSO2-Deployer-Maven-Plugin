@@ -9,6 +9,8 @@ mvn clean install -Dmaven.test.skip=true
 Run Test
 ========
 <pre>
-cd src/test/projects/project2
+cd src/test
 mvn deploy:wso2
 </pre>
+
+Please use the <code>pom.xml</code> in test folder as an example to configure your own deployments.  
