@@ -1,3 +1,5 @@
+Important notice: current version 0.2 can deploy WAR files only. I'll add the other deployment modules if I have some time.
+
 Build From Source
 =================
 <pre>
