@@ -16,11 +16,22 @@ Prepare
 
 Run Test
 ========
-For this test you need to install a <code>CRM-0.1.0.war</code> into your local repository. And of course the WSO2 servers need to be running.
+For this test you need to install the test artifacts into your local repository. For this test we take these, coming with the WSO2 AS:
+<pre>
+mvn install:install-file -DgroupId=test -DartifactId=WarTest -Dversion=1.0.0 -Dpackaging=war -Dfile=/<path-to-wso2as>/wso2as-5.2.0/repository/deployment/server/webapps/example.war
+mvn install:install-file -DgroupId=test -DartifactId=AarTest -Dversion=1.0.0 -Dpackaging=aar -Dfile=/<path-to-wso2as>/wso2as-5.2.0/repository/deployment/server/axis2services/HelloWorld.aar
+</pre>
+A CAR is not provided, so I provided one here (don't hesitate -- it contains an empty dummy config, w/o any application)
+<pre>
+mvn install:install-file -DgroupId=test -DartifactId=CarbonAppTest -Dversion=0.0.1 -Dpackaging=car -Dfile=CarbonAppTest.car
+</pre>
+Of course then the WSO2 servers need to be running -- at least a WSO2 AS.
 <pre>
 cd src/test
 mvn deploy:wso2
 </pre>
+The last deployment throws an exception from the stub, it can be ignored. It is a problem with the WSDL from the CAR service. 
+WSO2 may have fixed this meanwhile.
 
 Usage
 =====

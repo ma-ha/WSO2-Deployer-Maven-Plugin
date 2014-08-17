@@ -28,6 +28,7 @@
 				</executions>
 
 				<configuration>
+				
 					<environment>
 						<serverconfig>
 							<serverId>as01</serverId>
@@ -37,24 +38,44 @@
 						</serverconfig>
 						<serverconfig>
 							<serverId>as02</serverId>
-							<serverUrl>https://localhost:9444/services/</serverUrl>
+							<serverUrl>https://localhost:9443/services/</serverUrl>
 							<adminUser>admin</adminUser>
 							<adminPassword>admin</adminPassword>
 						</serverconfig>
 					</environment>
+					
 					<deployments>
+					
 						<deployment>
 							<serverId>as01</serverId>
-							<groupId>org.mh</groupId>
-							<artifactId>CRM</artifactId>
-							<version>0.1.0</version>
+							<groupId>test</groupId>
+							<artifactId>WarTest</artifactId>
+							<version>1.0.0</version>
 							<artifactType>war</artifactType>
-							<versionSubContext>false</versionSubContext>
+							<versionSubContext>false</versionSubContext> <!-- optional for "war" type, default is true -->
 						</deployment>
+		
+						<deployment>
+							<serverId>as02</serverId>
+							<groupId>test</groupId>
+							<artifactId>AarTest</artifactId>
+							<version>1.0.0</version>
+							<artifactType>aar</artifactType>
+						</deployment>
+						
+						<deployment>
+							<serverId>as01</serverId>
+							<groupId>test</groupId>
+							<artifactId>CarbonAppTest</artifactId>
+							<version>1.0.0</version>
+							<artifactType>car</artifactType>
+						</deployment>
+				
 					</deployments>
 				</configuration>
 
 			</plugin>
+
 		</plugins>
 	</build>
 

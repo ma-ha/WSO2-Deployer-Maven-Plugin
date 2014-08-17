@@ -11,6 +11,8 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.mh.mojo.wso2deployment.helper.Wso2AarDeployer;
+import org.mh.mojo.wso2deployment.helper.Wso2CarDeployer;
 import org.mh.mojo.wso2deployment.helper.Wso2WarDeployer;
 
 /**
@@ -50,14 +52,16 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 	    getLog().info( "[WSO2 Deployer Mojo] Server ("+svr.getServerId()+") URL: " + svr.getServerUrl() );
 	}
 	for ( Deployment deploy : deployments ) {
+	    getLog().info( "[WSO2 Deployer Mojo] ---------------------------------------------------" );
 	    try {		
+		getLog().info( "[WSO2 Deployer Mojo] Load artifact '"+deploy.getArtifactId()+"' from repository " );
 		File artifact = loadArtifact( deploy );
 		if ( artifact != null ) {
-		    getLog().info( "[WSO2 Deployer Mojo] Starting deployment: " + artifact.getName() );
+		    getLog().info( "[WSO2 Deployer Mojo] Starting deployment: " + artifact.getName() + " to " + deploy.getServerId() );
 		    
 		    if ( "war".equals(  deploy.getArtifactType().toLowerCase() ) ) {
 			
-			Wso2WarDeployer deployer = new Wso2WarDeployer( gerServerconfById( deploy.getServerId() ), getLog() );
+			Wso2WarDeployer deployer = new Wso2WarDeployer( getServerconfById( deploy.getServerId() ), getLog() );
 			getLog().info( "[WSO2 Deployer Mojo] Deploy with version subcontext: " + deploy.isVersionSubContext() );
 			if ( deploy.isVersionSubContext() ) {
 			    deployer.upload( artifact, deploy.getArtifactId()+".war", deploy.getVersion() );
@@ -67,11 +71,13 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 			
 		    } else if ( "aar".equals(  deploy.getArtifactType().toLowerCase() ) ) {
 			
-			// TODO doit ;-)
+			Wso2AarDeployer deployer = new Wso2AarDeployer(  getServerconfById( deploy.getServerId() ), getLog() );
+			deployer.uploadAAR( artifact, deploy.getArtifactId()+".aar", "" );
 			
 		    } else  if ( "car".equals(  deploy.getArtifactType().toLowerCase() ) ) {
 			
-			// TODO doit ;-)
+			Wso2CarDeployer deployer = new Wso2CarDeployer(  getServerconfById( deploy.getServerId() ), getLog() );
+			deployer.uploadCAR( artifact, deploy.getArtifactId()+".aar", "jar" );
 			
 		    }
 		    
@@ -86,7 +92,7 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 
     }
     
-    private Serverconfig gerServerconfById( String serverId ) {
+    private Serverconfig getServerconfById( String serverId ) {
 	Serverconfig svrConf = null;
 	for ( Serverconfig svr : environment ) {
 	    if ( serverId.equals( svr.getServerId() ) ) {
