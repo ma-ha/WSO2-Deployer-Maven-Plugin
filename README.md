@@ -8,6 +8,7 @@ mvn clean install -Dmaven.test.skip=true
 
 Run Test
 ========
+For this test you need to install a <code>CRM-0.1.0.war</code> into your local repository.
 <pre>
 cd src/test
 mvn deploy:wso2
