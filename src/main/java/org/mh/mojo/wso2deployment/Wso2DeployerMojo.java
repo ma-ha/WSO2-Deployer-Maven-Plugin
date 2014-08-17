@@ -37,7 +37,7 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 
     /** Execute goal. */
     public void execute() throws MojoExecutionException, MojoFailureException {
-	getLog().info( "[WSO2 Deployer Mojo] v0.2.1" );
+	getLog().info( "[WSO2 Deployer Mojo] v0.4.0" );
 
 	if ( environment == null ) {
 	    getLog().error( "[WSO2 Deployer Mojo] environment is missing in pom plugin configuration" );
