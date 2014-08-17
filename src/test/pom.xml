@@ -45,7 +45,7 @@
 					<deployments>
 						<deployment>
 							<serverId>as01</serverId>
-							<groupId>com.tsystems.concar</groupId>
+							<groupId>org.mh</groupId>
 							<artifactId>CRM</artifactId>
 							<version>0.1.0</version>
 							<artifactType>war</artifactType>
