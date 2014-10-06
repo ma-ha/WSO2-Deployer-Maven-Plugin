@@ -10,6 +10,7 @@ public class Deployment {
 	private String artifactType;
 	private String version;
 	private String artifactClassifier;
+	private String targetArtifact;
 	private boolean versionSubContext = true;
 	
 	
@@ -91,6 +92,18 @@ public class Deployment {
 	 */
 	public void setVersion( String version ) {
 		this.version = version;
+	}
+	/**
+	 * @return the targetArtifact
+	 */
+	public String getTargetArtifact() {
+		return targetArtifact;
+	}
+	/**
+	 * @param targetArtifact the targetArtifact to set
+	 */
+	public void setTargetArtifact(String targetArtifact) {
+		this.targetArtifact = targetArtifact;
 	}
 	
 }

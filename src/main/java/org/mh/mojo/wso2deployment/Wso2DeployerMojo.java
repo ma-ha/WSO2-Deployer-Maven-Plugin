@@ -53,10 +53,13 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 	}
 	for ( Deployment deploy : deployments ) {
 	    getLog().info( "[WSO2 Deployer Mojo] ---------------------------------------------------" );
+	    String targetName = deploy.getArtifactId();
 	    try {		
 		getLog().info( "[WSO2 Deployer Mojo] Load artifact '"+deploy.getArtifactId()+"' from repository " );
 		File artifact = loadArtifact( deploy );
 		if ( artifact != null ) {
+			
+			if(deploy.getTargetArtifact()!=null){ targetName = deploy.getTargetArtifact(); }
 		    getLog().info( "[WSO2 Deployer Mojo] Starting deployment: " + artifact.getName() + " to " + deploy.getServerId() );
 		    
 		    if ( "war".equals(  deploy.getArtifactType().toLowerCase() ) ) {
@@ -64,20 +67,20 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 			Wso2WarDeployer deployer = new Wso2WarDeployer( getServerconfById( deploy.getServerId() ), getLog() );
 			getLog().info( "[WSO2 Deployer Mojo] Deploy with version subcontext: " + deploy.isVersionSubContext() );
 			if ( deploy.isVersionSubContext() ) {
-			    deployer.upload( artifact, deploy.getArtifactId()+".war", deploy.getVersion() );
+			    deployer.upload( artifact, targetName+".war", deploy.getVersion() );
 			} else {
-			    deployer.upload( artifact, deploy.getArtifactId()+".war", null );
+			    deployer.upload( artifact, targetName+".war", null );
 			}
 			
 		    } else if ( "aar".equals(  deploy.getArtifactType().toLowerCase() ) ) {
 			
 			Wso2AarDeployer deployer = new Wso2AarDeployer(  getServerconfById( deploy.getServerId() ), getLog() );
-			deployer.uploadAAR( artifact, deploy.getArtifactId()+".aar", "" );
+			deployer.uploadAAR( artifact, targetName+".aar", "" );
 			
 		    } else  if ( "car".equals(  deploy.getArtifactType().toLowerCase() ) ) {
 			
 			Wso2CarDeployer deployer = new Wso2CarDeployer(  getServerconfById( deploy.getServerId() ), getLog() );
-			deployer.uploadCAR( artifact, deploy.getArtifactId()+".aar", "jar" );
+			deployer.uploadCAR( artifact, targetName+".aar", "jar" );
 			
 		    }
 		    
@@ -86,7 +89,7 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 		}
 	    } catch ( Exception e ) {
 		getLog().error( e );
-		getLog().error( "[WSO2 Deployer Mojo] Error deploying artifact "+deploy.getArtifactId() );
+		getLog().error( "[WSO2 Deployer Mojo] Error deploying artifact "+targetName );
 	    }
 	}
 
