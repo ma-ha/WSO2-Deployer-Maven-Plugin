@@ -80,7 +80,7 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 		    } else  if ( "car".equals(  deploy.getArtifactType().toLowerCase() ) ) {
 			
 			Wso2CarDeployer deployer = new Wso2CarDeployer(  getServerconfById( deploy.getServerId() ), getLog() );
-			deployer.uploadCAR( artifact, targetName+".aar", "jar" );
+			deployer.uploadCAR( artifact, targetName+".car", "jar" );
 			
 		    }
 		    
