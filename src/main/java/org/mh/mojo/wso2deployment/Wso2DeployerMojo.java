@@ -37,7 +37,7 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 
     /** Execute goal. */
     public void execute() throws MojoExecutionException, MojoFailureException {
-	getLog().info( "[WSO2 Deployer Mojo] v0.4.0" );
+	getLog().info( "[WSO2 Deployer Mojo] v0.4.2" );
 
 	if ( environment == null ) {
 	    getLog().error( "[WSO2 Deployer Mojo] environment is missing in pom plugin configuration" );
@@ -52,49 +52,39 @@ public class Wso2DeployerMojo extends AbstractDeployerMojo {
 	    getLog().info( "[WSO2 Deployer Mojo] Server ("+svr.getServerId()+") URL: " + svr.getServerUrl() );
 	}
 	for ( Deployment deploy : deployments ) {
-	    getLog().info( "[WSO2 Deployer Mojo] ---------------------------------------------------" );
-	    String targetName = deploy.getArtifactId();
-	    try {		
-		getLog().info( "[WSO2 Deployer Mojo] Load artifact '"+deploy.getArtifactId()+"' from repository " );
-		File artifact = loadArtifact( deploy );
-		if ( artifact != null ) {
-			
-			if(deploy.getTargetArtifact()!=null){ targetName = deploy.getTargetArtifact(); }
-		    getLog().info( "[WSO2 Deployer Mojo] Starting deployment: " + artifact.getName() + " to " + deploy.getServerId() );
-		    
-		    if ( "war".equals(  deploy.getArtifactType().toLowerCase() ) ) {
-			
-			Wso2WarDeployer deployer = new Wso2WarDeployer( getServerconfById( deploy.getServerId() ), getLog() );
-			getLog().info( "[WSO2 Deployer Mojo] Deploy with version subcontext: " + deploy.isVersionSubContext() );
-			if ( deploy.isVersionSubContext() ) {
-			    deployer.upload( artifact, targetName+".war", deploy.getVersion() );
-			} else {
-			    deployer.upload( artifact, targetName+".war", null );
-			}
-			
-		    } else if ( "aar".equals(  deploy.getArtifactType().toLowerCase() ) ) {
-			
-			Wso2AarDeployer deployer = new Wso2AarDeployer(  getServerconfById( deploy.getServerId() ), getLog() );
-			deployer.uploadAAR( artifact, targetName+".aar", "" );
-			
-		    } else  if ( "car".equals(  deploy.getArtifactType().toLowerCase() ) ) {
-			
-			Wso2CarDeployer deployer = new Wso2CarDeployer(  getServerconfById( deploy.getServerId() ), getLog() );
-			deployer.uploadCAR( artifact, targetName+".car", "jar" );
-			
-		    }
-		    
-		} else {
-		    getLog().error( "[WSO2 Deployer Mojo] Error loading artifact "+deploy.getArtifactId() );
-		}
-	    } catch ( Exception e ) {
-		getLog().error( e );
-		getLog().error( "[WSO2 Deployer Mojo] Error deploying artifact "+targetName );
-	    }
-	}
+		getLog().info( "[WSO2 Deployer Mojo] ---------------------------------------------------" );
+		String targetName = deploy.getArtifactId();
+		try {		
+			getLog().info( "[WSO2 Deployer Mojo] Load artifact '"+deploy.getArtifactId()+"' from repository " );
+			File artifact = loadArtifact( deploy );
+			if ( artifact != null ) {
+				if(deploy.getTargetArtifact()!=null){ targetName = deploy.getTargetArtifact(); }
+				getLog().info( "[WSO2 Deployer Mojo] Starting deployment: " + artifact.getName() + " to " + deploy.getServerId() );
+				if ( "war".equals(  deploy.getArtifactType().toLowerCase() ) ) {
+					Wso2WarDeployer deployer = new Wso2WarDeployer( getServerconfById( deploy.getServerId() ), getLog() );
+					getLog().info( "[WSO2 Deployer Mojo] Deploy with version subcontext: " + deploy.isVersionSubContext() );
+					if ( deploy.isVersionSubContext() ) {
+						deployer.upload( artifact, targetName+".war", deploy.getVersion() );
+					} else {
+						deployer.upload( artifact, targetName+".war", null );
+					}
+				} else if ( "aar".equals(  deploy.getArtifactType().toLowerCase() ) ) {
+					Wso2AarDeployer deployer = new Wso2AarDeployer(  getServerconfById( deploy.getServerId() ), getLog() );
+					deployer.uploadAAR( artifact, targetName+".aar", "" );
+				} else  if ( "car".equals(  deploy.getArtifactType().toLowerCase() ) ) {
+					Wso2CarDeployer deployer = new Wso2CarDeployer(  getServerconfById( deploy.getServerId() ), getLog() );
+					deployer.uploadCAR( artifact, targetName+".car", "jar" );
+				}
 
-    }
-    
+			} else {
+				throw new MojoExecutionException("[WSO2 Deployer Mojo] Error loading artifact "+deploy.getArtifactId());
+			}
+		} catch ( Exception e ) {
+			throw new MojoExecutionException("[WSO2 Deployer Mojo] Error deploying artifact "+targetName , e);
+		}
+	}
+}
+
     private Serverconfig getServerconfById( String serverId ) {
 	Serverconfig svrConf = null;
 	for ( Serverconfig svr : environment ) {
